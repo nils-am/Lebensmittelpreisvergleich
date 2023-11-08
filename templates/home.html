@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<div class="blocktext weiss paddingsuche rundekante">
+    <br>
+    <div class="text-center">
+        <h1>
+        Willkommen zum Lebensmittelpreisvergleich
+        </h1>
+    </div>
+    <br>
+    <br>
+    <div>Diese Webseite ist zum Vergleich von Lebensmittel gemacht. Suche dein gewünsches Lebensmittel, stöbere durch die Kategorien und vergleiche!</div>
+    <br>
+    <div>
+        <form method="POST" action="{{ url_for("search") }}" class="d-flex" role="search">
+         <input class="form-control me-2" type="search" placeholder="Suche Lebensmittel" aria-label="Search" name="searched" required>
+         <button class="btn2 search2 rundekante" type="submit">Suchen</button>
+        </form>
+    </div>
+    <br>
+    <br>
+</div>
+<br>
+<!--
+<form method="post">
+    <div class="update-table">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Suchanfrage</th>
+                    <th>Auswahl</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" placeholder="Suchanfrage" name="q" hx-get="/tempsearch" hx-trigger="keyup changed delay:100ms" hx-target="#res"></td>
+                    <td>Auswahl</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="tempsearch" >
+                            <p>Drücken Sie auf das gewünschte Resultat</p>
+                            <div class="tempresult" id="res">
+                                <p>asadfksjfjsfjnjnasjf</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="choice">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+       
+        </div>
+    </div>
+</form>
+-->
+<br>
+<br>
+<br>
+<br>
+<div class="cards">
+    {% for category in categories%}
+        <a href="{{ url_for("kategorie", kategorie=category.kategorie) }}" class="kategorie">
+            <div class="card">
+                <img src="" alt="" class="card_image">
+                <div class="card_content">
+                    <br>
+                    <div>
+                       <img src="/static/img/{{category.kategorie}}.svg" alt="">
+                    </div>
+                    <br>
+                    <div>{{ category.kategorie }}</div>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,501 @@
+:root {
+    --bs-blue: #0d6efd;
+    --bs-indigo: #6610f2;
+    --bs-purple: #6f42c1;
+    --bs-pink: #d63384;
+    --bs-red: #dc3545;
+    --bs-orange: #fd7e14;
+    --bs-yellow: #ffc107;
+    --bs-green: #198754;
+    --bs-teal: #20c997;
+    --bs-cyan: #0dcaf0;
+    --bs-white: #fff;
+    --bs-gray: #6c757d;
+    --bs-gray-dark: #343a40;
+    --bs-primary: #0d6efd;
+    --bs-secondary: #6c757d;
+    --bs-success: #198754;
+    --bs-info: #0dcaf0;
+    --bs-warning: #ffc107;
+    --bs-danger: #dc3545;
+    --bs-light: #f8f9fa;
+    --bs-dark: #212529;
+    --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+  }
+
+/* Farbpalette:
+/* CSS HEX 
+--pumpkin: #ff6700ff;
+--antiflash-white: #ebebebff;
+--silver: #c0c0c0ff;
+--bice-blue: #3a6ea5ff;
+--polynesian-blue: #004e98ff;
+*/
+
+/*
+
+Change Dropdown Menu to Hover by the following CSS Code:
+
+<!-- Dropend Menu Button-->
+                  <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                   Hallo
+                  </a>
+
+.dropdown .dropdown-menu {
+    display: none;
+    border-color: black;
+    border-width: 2px;
+}
+
+.dropdown:hover > .dropdown-menu, .dropend:hover > .dropdown-menu {
+    display: block;
+    margin-top: .125em;
+}
+
+.dropend:hover > .dropdown-menu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin-left: .150em;
+}
+*/
+
+.navbar {
+    font-size: 0.8em;
+    font-weight: 500;
+    background-color: #004e98ff;
+    outline: none !important;
+}
+
+.ddown{
+    font-weight: 200;
+}
+
+.weisseschrift {
+    color: white;
+}
+
+.weisseschrift:hover{
+    color: rgba(255, 255, 255, 0.682);
+}
+
+.weiss {
+    color: white;
+}
+
+.home {
+    font-size: 1.25em;
+    font-weight: 1000;
+}
+
+#sticky-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+
+.dunkelgrau{
+    background-color:#c0c0c0ff ;
+}
+
+body {
+    margin-bottom: 100px;
+}
+
+.blocktext {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    background-color: #3a6ea5ff;
+}
+
+.paddingsuche{
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+/*
+.container {
+    min-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  
+
+.grocery-table {
+    width: 50%;
+}
+
+.table {
+    
+    border-radius: 3px;
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.table-header {
+    background-color: #95A5A6;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+.table-body{
+    box-shadow: -4px 5px 6px -3px rgba(0, 0, 0, 0.194);
+}
+
+.col-1 {
+    flex-basis: 10%;
+  }
+  .col-2 {
+    flex-basis: 40%;
+  }
+  .col-3 {
+    flex-basis: 25%;
+  }
+
+.col {
+    display: flex;
+    padding: 10px 0;
+}
+
+.col::before {
+    color: #6C7A89;
+    padding-right: 10px;
+    content: attr(data-label);
+    flex-basis: 50%;
+    text-align: right;
+}
+
+.product-table {
+    width: 50%;
+    margin: 0 auto;
+}
+*/
+
+.container {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  h2 {
+    font-size: 26px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  h2 small {
+      font-size: 0.5em;
+    }
+
+.responsive-table li {
+    border-radius: 3px;
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    border-style:solid;
+    border-width: 0.5px;
+    border-radius: 1px;
+   
+}
+
+.responsive-table .table-header {
+    background-color: #c0c0c0ff;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.responsive-table .table-row {
+    background-color: #ebebebff;
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+}
+
+.responsive-table .col-1 {
+    flex-basis: 40%;
+}
+
+.responsive-table .col-2 {
+    flex-basis: 20%;
+}
+
+.responsive-table .col-3 {
+    flex-basis: 20%;
+}
+
+.responsive-table .col-4 {
+    flex-basis: 20%;
+}
+
+@media all and (max-width: 767px) {
+    .responsive-table .table-header {
+        display: none;
+    }
+
+    .responsive-table .table-row {
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+    }
+
+    .responsive-table li {
+        display: block;
+    }
+
+    .responsive-table .col {
+        flex-basis: 100%;
+    }
+
+    .responsive-table .col {
+        display: flex;
+        padding: 10px 0;
+    }
+
+    .responsive-table .col:before {
+        color: #6C7A89;
+        padding-right: 10px;
+        content: attr(data-label);
+        flex-basis: 50%;
+        text-align: right;
+    }
+}
+
+
+
+
+.produkttitel{
+    color: black;
+    font-size: 40px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.content-page {
+    margin: 0 2%;
+}
+
+.update-table {
+    width: 50%;
+}
+
+.add-table {
+    width: 100%;
+    outline: solid red;
+}
+
+.btn {
+    border: 2px white;
+    background-color:rgb(0, 35, 67);
+    color: white;
+    padding: 14px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+  
+.search {
+    border-color: white;
+    color: white;
+}
+  
+.search:hover {
+    background-color:rgba(58, 110, 165, 0.571);
+    color: white;
+}
+
+.btn2 {
+    border: 2px white;
+    background-color:rgb(32, 62, 94);
+    padding: 14px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.search2 {
+    border-color: rgb(255, 255, 255);
+    color: white;
+}
+  
+.search2:hover {
+    background-color: #5e80a487;
+    color: white;
+}
+
+.rundekante{
+    border-radius: 5px;
+}
+
+.eckigekante{
+    border-radius: 0px;
+}
+
+/*
+.results {
+    border: black solid;
+    height: 300px;
+    align-self: end;
+}
+
+.filter {
+    border: black solid;
+    height: 200px;
+    align-self: end;
+    width: 200px;
+}
+
+.result_wrapper {
+    display: flex;
+    border: red solid;
+}
+*/
+
+.cards {
+    display: flex;
+    justify-content:center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+.card {
+    box-shadow: -4px 5px 6px -3px rgba(0, 0, 0, 0.194);
+    transition: 0.2s;
+    width: 300px;
+    height: 200px;
+    background-color: #ebebebff;
+    border-style:solid;
+    border-width: 0.5px;
+    border-radius: 1px;
+}  
+
+.card:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.card_image {
+    width: 100%;
+    display:block;
+}
+
+.card_content {
+    line-height: 1.5;
+    font-size: 1.25em;
+    font-weight: 400;
+    text-align: center;
+    justify-content: center;
+    
+}
+
+.cardprodukt {
+    height: 300px;
+}  
+
+.kategorie{
+    color: black;
+    font-family: sans-serif;
+}
+.kategorie:hover{
+    color:rgba(0, 0, 0, 0.665);
+}
+
+a:link, a:visited {
+    text-decoration: none;
+   }
+
+.breite{
+    width: 30px;
+}
+
+.produktbild{
+    margin: 15px;
+}
+
+.produktbezeichnung{
+    color:#c0c0c0ff;
+    font-size: smaller;
+    font-weight: 500;
+}
+
+.produktn{
+    height: 60px;
+}
+
+.toppreis{
+    color:#c0c0c0ff;
+    font-size: smaller;
+    font-weight: 500;
+    text-align:start;
+    padding-left: 10px;
+}
+
+.preis{
+    background-color: #5e80a4;
+    color:#ff6700ff;
+    font-size: larger;
+    font-weight: 400;
+    text-align:start;
+    padding-left: 10px;
+}
+.laden{
+    background-color: #6c757d;
+    padding-right: 10px;
+    text-align: end;
+}
+
+.tempsearch {
+    background-color: rgb(148, 176, 227);
+    border-style: solid;
+    border-radius: 2px;
+}
+
+.tempresult {
+    background-color: #20c997;
+    border-style: solid;
+    border-radius: 2px;
+}
+
+.breite {
+    width: 115px;
+    display: block;
+}
+
+.wrap-text {
+    white-space: normal; /* Allow text to wrap */
+    word-wrap:normal; /* Break long words if necessary */
+    max-width: 90%; /* Ensure it doesn't exceed the container's width */
+    color: #fff !important; /* Set the text color to white */
+}
+
+.wrap-text:hover{
+    color: rgba(255, 255, 255, 0.682) !important;
+}
+
+.center-vertical {
+    line-height: 30px; /* Adjust the line height to center vertically */
+    padding-top: 10px; /* Adjust the top padding for vertical alignment */
+    margin-right: 10px;
+}
+
+body {
+    font-family: "Helvetica", Arial, sans-serif;
+}
+
+.log{
+    background-color: #0d6efd;
+}
+
+.logtitle{
+    font-family: "Helvetica", Arial, sans-serif;
+    font-weight: 300;
+}

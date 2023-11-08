@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1> {{ searched }} </h1>
+<h2> {{message}} </h2>
+<br>
+<div class="cards">
+    {% for result in results%}
+        <a href="{{ url_for("lebensmittel", lebensmittelbezeichnung=result.lebensmittel) }}" class="kategorie">
+            <div class="card">
+                <img src="" alt="" class="card_image">
+                <div class="card_content">
+                    <br>
+                    <div>
+                       <img src="/static/img/{{result.lebensmittel}}.svg" alt="">
+                    </div>
+                    <br>
+                    <div>{{ result.lebensmittel }}</div>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+
+{% endblock %}

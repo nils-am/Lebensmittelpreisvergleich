@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+    
+<h1>Einkauf ändern</h1>
+<p>{{ message }}</p>
+<form method="post">
+    <div class="update-table">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Information</th>
+                    <th>Eingabe</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Preis:</td>
+                    <td><input type="text" min="1" name="preis" value="{{ grocery.preis }}" required></td>
+                </tr>
+                <tr>
+                    <td>Lebensmittel:</td>
+                    <td><input type="text" name="lebensmittel" value="{{ grocery.lebensmittel }}" required></td>
+                </tr>
+                <tr>
+                    <td>Qualität:</td>
+                    <td><input type="text" name="quali" value="{{ grocery.quali }}" required></td>
+                </tr>
+                <tr>
+                    <td>Laden:</td>
+                    <td><input type="text" name="laden" value="{{ grocery.laden }}" required></td>
+                </tr>
+                <tr>
+                    <td>Produktname:</td>
+                    <td><input type="text" name="produktname" value="{{ grocery.produktname }}" required></td>
+                </tr>
+                <tr>
+                    <td>Kategorie:</td>
+                    <td><input type="text" name="kategorie" value="{{ grocery.kategorie }}" required></td>
+                </tr>
+                <tr>
+                    <td>Zusatz:</td>
+                    <td><input type="text" name="zusatz" value="{{ grocery.zusatz }}" required></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<input type="submit">
+</form>
+
+{% endblock %}

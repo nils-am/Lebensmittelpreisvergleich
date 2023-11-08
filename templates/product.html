@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content%}
+<div class="container">
+    <h2>Produktseite von {{products[0].produktname}} <small></small></h2>
+    <ul class="responsive-table">
+      <li class="table-header">
+        <div class="col col-1">Preis</div>
+        <div class="col col-2">Qualität</div>
+        <div class="col col-3">Laden</div>
+        <div class="col col-4">Preis/100g</div>
+      </li>
+
+    {% for product in products%}
+      <li class="table-row">
+        <div class="col col-1" data-label="Preis">CHF {{product.preis}}</div>
+        <div class="col col-2" data-label="Qualität">{{product.quali}}</div>
+        <div class="col col-3" data-label="Laden">{{product.laden}}</div>
+        <div class="col col-4" data-label="Gewicht"> {% set pp100g = product.preis/product.zusatz * 100%}CHF {{'%0.2f'| format(pp100g|float)}}</div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+{% endblock %}
