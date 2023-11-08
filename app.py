@@ -1,4 +1,3 @@
-from collections import UserDict
 from flask import Flask, redirect, render_template, request, session, url_for, abort, g
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Numeric
@@ -11,7 +10,7 @@ db = SQLAlchemy()
 db.init_app(app)
 
 if __name__ == "__main__":
-    app.run(debug=False, host="0.0.0.0")
+    app.run(debug=False, host="0.0.0.0", port=5000)
 
 #DB for lebensmittel
 class Produkt(db.Model):
