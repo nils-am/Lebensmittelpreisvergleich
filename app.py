@@ -1,14 +1,17 @@
 from flask import Flask, redirect, render_template, request, session, url_for, abort, g
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Numeric
-
+from sqlalchemy import create_engine, Numeric
+from flask_mysqldb import MySQL
 
 app = Flask(__name__)
-app.secret_key = b'gskjd%hsgd82jsd'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///preisvergleich.db'
-db = SQLAlchemy()
-db.init_app(app)
 
+# Replace these lines with your environment variables
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://sql11660633:wrLMsI537Z@sql11.freemysqlhosting.net:3306/sql11660633"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.secret_key = '$6q_cHiPltHl&R-wOkOb'
+
+
+db = SQLAlchemy(app)
 if __name__ == "__main__":
     app.run(debug=False, host="0.0.0.0", port=5000)
 
@@ -23,9 +26,23 @@ class Produkt(db.Model):
     kategorie = db.Column(db.String(120), unique=False, nullable=False)
     zusatz = db.Column(db.Numeric(scale=2), unique=False, nullable=True)
 
+    def __init__(self, preis, lebensmittel, quali, laden, produktname, kategorie, zusatz, id=None):
+        self.id = id
+        self.preis=preis
+        self.lebensmittel=lebensmittel
+        self.quali=quali
+        self.laden=laden
+        self.produktname=produktname
+        self.kategorie=kategorie
+        self.zusatz=zusatz
+
 class Kategorie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
+
+    def __init__(self, name, id=None):
+        self.id = id
+        self.name=name
 
 #Admin Page with Functionality to add lebensmittel
 @app.route('/admin/', methods=('GET', 'POST'))
@@ -182,6 +199,7 @@ def home():
     cat = Kategorie.query.order_by(Kategorie.name).all()      
     cat = list(cat)                                                          
     return render_template("home.html", lebensmittel=lebensmittel, categories=categories, cat=cat)
+
 
 #Product Page
 @app.route("/product/<produktname>")
