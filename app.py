@@ -44,7 +44,9 @@ class Kategorie(db.Model):
 #Admin Page with Functionality to add lebensmittel
 @app.route('/admin', methods=('GET', 'POST'))
 def admin():
+    print("test1")
     if g.user:
+        print("test2")
         message = ""
         lebensmittel = db.session.execute(db.select(Produkt).group_by(Produkt.lebensmittel)).scalars()
         lebensmittel=list(lebensmittel)    
@@ -54,6 +56,7 @@ def admin():
         categories = list(categories)
         cat = Kategorie.query.order_by(Kategorie.name).all()
         cat = list(cat)
+        print("test3")
         return render_template('admin.html', lebensmittel=lebensmittel, message=message, categories=categories, products=products, user=session["user"], cat=cat)
     else:
         return redirect(url_for("home"))
