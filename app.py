@@ -48,11 +48,9 @@ class Kategorie(db.Model):
 #Empty User Before Login
 @app.before_request
 def before_request():
-    g.user = None
-    username = session.get("user")
-    if username is not None:
-        g.user = session["user"]
-        print(g.user)
+    g.user = session.get("user")
+    print(g.user)
+
 
 #Admin Page with Functionality to add lebensmittel
 @app.route('/admin', methods=('GET', 'POST'))
