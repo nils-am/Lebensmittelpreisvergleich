@@ -41,6 +41,13 @@ class Kategorie(db.Model):
         self.id = id
         self.name=name
 
+#Empty User Before Login
+@app.before_request
+def before_request():
+    g.user = None
+    if "user" in session:
+        g.user = session["user"]
+
 #Admin Page with Functionality to add lebensmittel
 @app.route('/admin', methods=('GET', 'POST'))
 def admin():
@@ -271,14 +278,6 @@ def login():
             return render_template("login_page.html")
     else:
         return render_template("login_page.html")
-
-#Empty User Before Login
-@app.before_request
-def before_request():
-    g.user = None
-
-    if "user" in session:
-        g.user = session["user"]
 
 #Logout
 @app.route("/dropsession")
