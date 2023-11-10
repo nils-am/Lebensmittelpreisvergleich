@@ -1,6 +1,9 @@
 from flask import Flask, redirect, render_template, request, session, url_for, abort, g
 from flask_sqlalchemy import SQLAlchemy
 from datetime import timedelta
+import logging 
+
+logging.basicConfig(level=logging.DEBUG) 
 
 app = Flask(__name__)
 
@@ -9,8 +12,6 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://sql11660633:wrLM
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.secret_key = '$6q_cHiPltHl&R-wOkOb'
 app.config["SESSION_COOKIE_SECURE"] = True
-app.config["SESSION_PERMANENT"] = True
-app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=30)  # Set to your desired lifetime
 
 db = SQLAlchemy(app)
 if __name__ == "__main__":
@@ -49,6 +50,8 @@ class Kategorie(db.Model):
 @app.before_request
 def before_request():
     g.user = session.get("user")
+    print(session)
+    print(session["user"])
     print(g.user)
 
 
@@ -67,6 +70,7 @@ def admin():
         cat = list(cat)
         return render_template('admin.html', lebensmittel=lebensmittel, message=message, categories=categories, products=products, user=session["user"], cat=cat)
     else:
+        print(g.user)
         return redirect(url_for("home"))
 
 #Login
