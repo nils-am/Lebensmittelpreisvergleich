@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 # Replace these lines with your environment variables
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://sql11660633:wrLMsI537Z@sql11.freemysqlhosting.net:3306/sql11660633"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://sql11660633:wrLMsI537Z@sql11.freemysqlhosting.net:3306/sql11660633"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.secret_key = '$6q_cHiPltHl&R-wOkOb'
 
