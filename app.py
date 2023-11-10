@@ -51,14 +51,14 @@ class Kategorie(db.Model):
 def before_request():
     g.user = session.get("user")
     print(session)
-    print(session["user"])
+    print(session.get("user"))
     print(g.user)
 
 
 #Admin Page with Functionality to add lebensmittel
 @app.route('/admin', methods=('GET', 'POST'))
 def admin():
-    if g.user:
+    if session:
         message = ""
         lebensmittel = db.session.execute(db.select(Produkt).group_by(Produkt.lebensmittel)).scalars()
         lebensmittel=list(lebensmittel)    
