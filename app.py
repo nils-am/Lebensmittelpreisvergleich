@@ -48,19 +48,16 @@ class Kategorie(db.Model):
 #Empty User Before Login
 @app.before_request
 def before_request():
-    print("1test1")
     g.user = None
-    print("2test2")
-    if "user" in session:
+    username = session.get("user")
+    if username is not None:
         g.user = session["user"]
-        print("3test3")
+        print(g.user)
 
 #Admin Page with Functionality to add lebensmittel
 @app.route('/admin', methods=('GET', 'POST'))
 def admin():
-    print("test1")
     if g.user:
-        print("test2")
         message = ""
         lebensmittel = db.session.execute(db.select(Produkt).group_by(Produkt.lebensmittel)).scalars()
         lebensmittel=list(lebensmittel)    
@@ -70,7 +67,6 @@ def admin():
         categories = list(categories)
         cat = Kategorie.query.order_by(Kategorie.name).all()
         cat = list(cat)
-        print("test3")
         return render_template('admin.html', lebensmittel=lebensmittel, message=message, categories=categories, products=products, user=session["user"], cat=cat)
     else:
         return redirect(url_for("home"))
@@ -79,15 +75,10 @@ def admin():
 @app.route("/login", methods=['POST', "GET"])
 def login():
     if request.method == 'POST':
-        print(session)
         session.pop('user', None)
-        print(session)
         if request.form["password"] == "FR5jafr4swibo*akocr4" and request.form["username"] == "YaraNilsMatura23":
             session["user"] = request.form["username"]
-            if "user" in session:
-                print("debug")
-            g.user = request.form["username"]
-            print("3test")
+            print(session)
             return redirect(url_for("admin"))
         else: 
             return render_template("login_page.html")
