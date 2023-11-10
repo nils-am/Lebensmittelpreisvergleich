@@ -75,6 +75,23 @@ def admin():
     else:
         return redirect(url_for("home"))
 
+#Login
+@app.route("/login", methods=['POST', "GET"])
+def login():
+    if request.method == 'POST':
+        print("1test")
+        session.pop('user', None)
+        print("2test")
+        if request.form["password"] == "FR5jafr4swibo*akocr4" and request.form["username" ] == "YaraNilsMatura23" :
+            session["user"] = request.form["username"]
+            g.user = request.form["username"]
+            print("3test")
+            return redirect(url_for("admin"))
+        else: 
+            return render_template("login_page.html")
+    else:
+        return render_template("login_page.html")
+
 #Add Grocery in Admin Panel
 @app.route("/add_grocery", methods=["POST", "GET"])
 def add_grocery():
@@ -272,22 +289,6 @@ def kategorie(kategorie):
     results = list(results)
     searched = kategorie
     return render_template("category_results.html", results=results, searched=searched, categories=categories, lebensmittel=lebensmittel)
-
-#Login
-@app.route("/login", methods=['POST', "GET"])
-def login():
-    if request.method == 'POST':
-        print("1test")
-        session.pop('user', None)
-        print("2test")
-        if request.form["password"] == "FR5jafr4swibo*akocr4" and request.form["username" ] == "YaraNilsMatura23" :
-            session["user"] = request.form["username"]
-            print("3test")
-            return redirect(url_for("admin"))
-        else: 
-            return render_template("login_page.html")
-    else:
-        return render_template("login_page.html")
 
 #Logout
 @app.route("/dropsession")
