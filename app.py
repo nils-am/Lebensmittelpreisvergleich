@@ -9,7 +9,6 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://sql11660633:wrLMsI537Z@sql11.fr
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.secret_key = '$6q_cHiPltHl&R-wOkOb'
 
-
 db = SQLAlchemy(app)
 if __name__ == "__main__":
     app.run(debug=False, host="0.0.0.0", port=5000)
