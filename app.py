@@ -1,6 +1,5 @@
 from flask import Flask, redirect, render_template, request, session, url_for, abort, g
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine, Numeric
 
 app = Flask(__name__)
 
