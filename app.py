@@ -42,10 +42,8 @@ class Kategorie(db.Model):
         self.name=name
 
 #Admin Page with Functionality to add lebensmittel
-@app.route('/admin/', methods=('GET', 'POST'))
+@app.route('/admin', methods=('GET', 'POST'))
 def admin():
-    return "Done"
-'''
     if g.user:
         message = ""
         lebensmittel = db.session.execute(db.select(Produkt).group_by(Produkt.lebensmittel)).scalars()
@@ -59,7 +57,6 @@ def admin():
         return render_template('admin.html', lebensmittel=lebensmittel, message=message, categories=categories, products=products, user=session["user"], cat=cat)
     else:
         return redirect(url_for("home"))
-'''
 
 #Add Grocery in Admin Panel
 @app.route("/add_grocery", methods=["POST", "GET"])
