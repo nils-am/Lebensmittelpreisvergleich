@@ -79,10 +79,10 @@ def admin():
 @app.route("/login", methods=['POST', "GET"])
 def login():
     if request.method == 'POST':
-        print("1test")
+        print(session)
         session.pop('user', None)
-        print("2test")
-        if request.form["password"] == "FR5jafr4swibo*akocr4" and request.form["username" ] == "YaraNilsMatura23" :
+        print(session)
+        if request.form["password"] == "FR5jafr4swibo*akocr4" and request.form["username"] == "YaraNilsMatura23":
             session["user"] = request.form["username"]
             if "user" in session:
                 print("debug")
