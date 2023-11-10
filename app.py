@@ -1,5 +1,6 @@
 from flask import Flask, redirect, render_template, request, session, url_for, abort, g
 from flask_sqlalchemy import SQLAlchemy
+from datetime import timedelta
 
 app = Flask(__name__)
 
@@ -7,6 +8,9 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://sql11660633:wrLMsI537Z@sql11.freemysqlhosting.net:3306/sql11660633"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.secret_key = '$6q_cHiPltHl&R-wOkOb'
+app.config["SESSION_COOKIE_SECURE"] = True
+app.config["SESSION_PERMANENT"] = True
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=30)  # Set to your desired lifetime
 
 db = SQLAlchemy(app)
 if __name__ == "__main__":
@@ -44,9 +48,12 @@ class Kategorie(db.Model):
 #Empty User Before Login
 @app.before_request
 def before_request():
+    print("1test1")
     g.user = None
+    print("2test2")
     if "user" in session:
         g.user = session["user"]
+        print("3test3")
 
 #Admin Page with Functionality to add lebensmittel
 @app.route('/admin', methods=('GET', 'POST'))
