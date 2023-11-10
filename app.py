@@ -84,6 +84,8 @@ def login():
         print("2test")
         if request.form["password"] == "FR5jafr4swibo*akocr4" and request.form["username" ] == "YaraNilsMatura23" :
             session["user"] = request.form["username"]
+            if "user" in session:
+                print("debug")
             g.user = request.form["username"]
             print("3test")
             return redirect(url_for("admin"))
