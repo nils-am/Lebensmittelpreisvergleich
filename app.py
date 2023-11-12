@@ -251,7 +251,8 @@ def search():
     results_produktname = db.session.query(Produkt).filter(Produkt.produktname.like(searched)).group_by(Produkt.produktname)
     results_lebensmittel = db.session.query(Produkt).filter(Produkt.lebensmittel.like(searched)).group_by(Produkt.produktname)
     results_kategorie = db.session.query(Produkt).filter(Produkt.kategorie.like(searched)).group_by(Produkt.produktname)
-    results = results_produktname.union(results_lebensmittel).union(results_kategorie).distinct().all()
+    results_laden = db.session.query(Produkt).filter(Produkt.laden.like(searched)).group_by(Produkt.produktname)
+    results = results_produktname.union(results_lebensmittel).union(results_kategorie).union(results_laden).distinct().all()
     message=""
     if results:
         results=results

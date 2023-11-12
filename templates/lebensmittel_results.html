@@ -7,13 +7,11 @@
     {% for result in results%}
         <a href="{{ url_for("product", produktname=result.produktname) }}">
             <div class="card">
-                <img src="" alt="" class="card_image">
                 <div class="card_content">
                     <br>
-                    <div>
+                    <div class="image-container">
                         <img src="/static/img/{{result.lebensmittel}}.svg" alt="">
                     </div>
-                    <br>
                     <div>
                         {{result.produktname}}
                     </div>

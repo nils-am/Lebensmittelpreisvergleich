@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
   </head>
 
   <body>
@@ -41,7 +42,7 @@
           {% endfor %}
            </ul>
           <form method="POST" action="{{ url_for("search") }}" class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Suche Lebensmittel" aria-label="Search" name="searched" required>
+            <input class="form-control me-2" type="search" placeholder="Eingabe" aria-label="Search" name="searched" required>
             <button class="btn search" type="submit">Suchen</button>
           </form>
         </div>
@@ -51,15 +52,16 @@
       {%block content%}
       {%endblock%}
     </div>
-    <footer id="sticky-footer" class="flex-shrink-0 py-3 bg-dark text-white-50">
-      <div class="container text-center">
-       <small>Copyright &copy; Maturaarbeit Lebensmittelpreisvergleich</small>
-       <a href="{{ url_for("login") }}">Login</a>
-       <a href="{{ url_for("dropsession") }}">Logout</a>
-      </div>
-    </footer>
-   
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<br>
+<br>
+<br>
+<br>
   </body>
+  <footer id="footer" class="flex-shrink-0 py-3 bg-dark text-white-50">
+    <div class="container text-center">
+     <small>Copyright &copy; Maturaarbeit Lebensmittelpreisvergleich</small>
+     <a href="{{ url_for("login") }}">Login</a>
+     <a href="{{ url_for("dropsession") }}">Logout</a>
+    </div>
+  </footer>
 </html>

@@ -2,6 +2,7 @@
 
 {% block content %}
 <br>
+<br>
 <div class="blocktext weiss paddingsuche rundekante">
     <br>
     <div class="text-center">
@@ -11,18 +12,17 @@
     </div>
     <br>
     <br>
-    <div>Diese Webseite ist zum Vergleich von Lebensmittel gemacht. Suche dein gewünsches Lebensmittel, stöbere durch die Kategorien und vergleiche!</div>
+    <div>Diese Webseite ist zum Vergleich von Lebensmitteln gemacht. Suche dein gewünsches Lebensmittel, stöbere durch die Kategorien und vergleiche!</div>
     <br>
     <div>
         <form method="POST" action="{{ url_for("search") }}" class="d-flex" role="search">
-         <input class="form-control me-2" type="search" placeholder="Suche Lebensmittel" aria-label="Search" name="searched" required>
+         <input class="form-control me-2" type="search" placeholder="Eingabe" aria-label="Search" name="searched" required>
          <button class="btn2 search2 rundekante" type="submit">Suchen</button>
         </form>
     </div>
     <br>
     <br>
 </div>
-<br>
 <!--
 <form method="post">
     <div class="update-table">
@@ -59,13 +59,10 @@
 -->
 <br>
 <br>
-<br>
-<br>
 <div class="cards">
     {% for category in categories%}
         <a href="{{ url_for("kategorie", kategorie=category.kategorie) }}" class="kategorie">
             <div class="card">
-                <img src="" alt="" class="card_image">
                 <div class="card_content">
                     <br>
                     <div>
