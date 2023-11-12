@@ -52,7 +52,13 @@
             </tr>
             <tr>
                 <td>Lebensmittelanbieter</td>
-                <td><input type="text" name="laden" required></td>
+                <td>
+                    <select name="anbieter" id="anbieter">
+                        {% for anbieter in anbieter%}
+                            <option value="{{anbieter.name}}">{{anbieter.name}}</option>
+                        {%endfor%}
+                    </select>                
+                </td>
             </tr>
             <tr>
                 <td>Produktname</td>
@@ -95,6 +101,29 @@
                 </td>
                 <td>
                     <a href="{{ url_for("catdel", id=category.id) }}">Löschen</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</form>
+
+<form method="post" action="{{url_for("add_anbieter")}}">
+    <table>
+        <th>
+            <tr>
+                <label for="anbieter">Neuen Anbieter hinzufügen</label>
+                <td><input type="text" name="anbieter" action="{{ url_for("admin")}}"></td><td><input type="submit" form="newanbieter"></td>
+            </tr>
+        </th>
+        <tbody>
+            {% for anbieter in anbieter %}
+            <tr>
+                <td>
+                    {{anbieter.name}}
+                </td>
+                <td>
+                    <a href="{{ url_for("anbieter_delete", id=anbieter.id) }}">Löschen</a>
                 </td>
             </tr>
             {% endfor %}

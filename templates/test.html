@@ -1,18 +1,19 @@
-<form method="post">
-    <div class="update-table">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Information</th>
-                    <th>Eingabe</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Preis:</td>
-                    <td><input type="text" min="1" name="preis" value="{{ grocery.preis }}" required></td>
-            </tbody>
-        </table>
-    </div>
-<input type="submit">
-</form>
+{% for i in results_lebensmittel %}
+{{i.produktname}}, {{i.preis}}, {{i.laden}}
+<br>
+{%endfor%}
+<br>
+{% for i in results_produktname %}
+{{i.produktname}}, {{i.preis}}, {{i.laden}}
+<br>
+{%endfor%}
+<br>
+{% for i in results_kategorie %}
+{{i.produktname}}, {{i.preis}}, {{i.laden}}
+<br>
+{%endfor%}
+<br>
+{% for i in results %}
+{{i.produktname}}, {{i.preis}}, {{i.laden}}
+<br>
+{%endfor%}

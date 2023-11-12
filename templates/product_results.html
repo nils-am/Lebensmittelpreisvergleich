@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<br>
 {% if results %}
     <h1>Ihre Resultate für {{ searched}} </h1>
 {% endif %}
@@ -8,7 +9,6 @@
     {% for result in results%}
         <a href=" {{url_for("product", produktname=result.produktname ) }} ">
             <div class="card cardprodukt">
-                <img src="" alt="" class="card_image">
                 <div class="card_content">
                         <div class="produktbild">
                             <img src="/static/img/{{result.lebensmittel}}.svg" alt="">
@@ -18,7 +18,6 @@
                         <div class="toppreis">Top-Preis:</div>
                         <div class="preis">{{result.preis}}</div>
                         <div class="laden">{{result.laden}}</div>
-                    </ul>
                 </div>
             </div>
         </a>

@@ -266,6 +266,7 @@ Change Dropdown Menu to Hover by the following CSS Code:
 @media only screen and (orientation: portrait) {
     .blocktext {
         width: 90%;
+        font-size: 30px;
     }
 }
 
@@ -375,7 +376,7 @@ Change Dropdown Menu to Hover by the following CSS Code:
     box-shadow: -4px 5px 6px -3px rgba(0, 0, 0, 0.194);
     transition: 0.2s;
     width: 300px;
-    height: 220px;
+    height: auto;
     background-color: #ebebebff;
     border-style:solid;
     border-width: 0.5px;
@@ -400,9 +401,6 @@ Change Dropdown Menu to Hover by the following CSS Code:
     
 }
 
-.cardprodukt {
-    height: 299px;
-}  
 
 .kategorie{
     color: black;
@@ -446,7 +444,6 @@ a:link, a:visited {
 }
 
 .preis{
-    background-color: #5e80a4;
     color:#ff6700ff;
     font-size: larger;
     font-weight: 400;
@@ -454,7 +451,6 @@ a:link, a:visited {
     padding-left: 10px;
 }
 .laden{
-    background-color: #6c757d;
     padding-right: 10px;
     text-align: end;
 }
@@ -531,4 +527,8 @@ img {
 
 #footer a {
     color: white;
+}
+
+h1 {
+    text-align: center;
 }

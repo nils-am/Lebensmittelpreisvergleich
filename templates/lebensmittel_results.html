@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+<br>
 <h1> {{ searched }} </h1>
-<h2> {{message}} </h2>
 <br>
 <div class="cards">
     {% for result in results%}
@@ -12,9 +12,10 @@
                     <div class="image-container">
                         <img src="/static/img/{{result.lebensmittel}}.svg" alt="">
                     </div>
-                    <div>
-                        {{result.produktname}}
-                    </div>
+                    {{result.produktname}}
+                    <div class="toppreis">Top-Preis:</div>
+                    <div class="preis">{{result.preis}}</div>
+                    <div class="laden">{{result.laden}}</div>
                 </div>
             </div>
         </a>

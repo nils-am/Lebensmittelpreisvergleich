@@ -1,5 +1,6 @@
 from flask import Flask, redirect, render_template, request, session, url_for, abort, g
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func, and_
 from datetime import timedelta
 import logging 
 
@@ -38,7 +39,17 @@ class Produkt(db.Model):
         self.kategorie=kategorie
         self.zusatz=zusatz
 
+#DB for Categories
 class Kategorie(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), unique=True, nullable=False)
+
+    def __init__(self, name, id=None):
+        self.id = id
+        self.name=name
+
+#DB for Anbieter
+class Anbieter(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
 
@@ -68,7 +79,9 @@ def admin():
         categories = list(categories)
         cat = Kategorie.query.order_by(Kategorie.name).all()
         cat = list(cat)
-        return render_template('admin.html', lebensmittel=lebensmittel, message=message, categories=categories, products=products, user=session["user"], cat=cat)
+        anbieter = Anbieter.query.order_by(Anbieter.name).all()
+        anbieter=list(anbieter)
+        return render_template('admin.html', lebensmittel=lebensmittel, message=message, categories=categories, products=products, user=session["user"], cat=cat, anbieter=anbieter)
     else:
         print(g.user)
         return redirect(url_for("home"))
@@ -96,7 +109,7 @@ def add_grocery():
         preis = request.form["preis"]
         lebensmittel = request.form["lebensmittel"]
         quali= request.form["quali"]
-        laden= request.form["laden"]
+        laden= request.form.get("anbieter")
         produktname = request.form["produktname"]
         kategorie = request.form.get("category")
         zusatz = request.form["zusatz"]
@@ -129,7 +142,9 @@ def add_grocery():
         categories = list(categories)
         cat = Kategorie.query.order_by(Kategorie.name).all()
         cat = list(cat)
-        return render_template('admin.html', lebensmittel=lebensmittel, message=message, categories=categories, products=products, user=session["user"], cat=cat)
+        anbieter = Anbieter.query.order_by(Anbieter.name).all()
+        anbieter = list(anbieter)
+        return render_template('admin.html', lebensmittel=lebensmittel, message=message, categories=categories, products=products, user=session["user"], cat=cat, anbieter=anbieter)
 
 #Add Category in Admin Panel
 @app.route("/add_category", methods=["GET", "POST"])
@@ -152,6 +167,28 @@ def add_category():
     cat = list(cat)
     return render_template("admin.html", lebensmittel=lebensmittel, products=products, categories=categories, cat=cat)
         
+#Add Anbieter in Admin Panel
+@app.route("/add_anbieter", methods=["GET", "POST"])
+def add_anbieter():
+    if request.method == "POST":
+        name = request.form["anbieter"]
+        print(name)
+        neuerA = Anbieter(name=name)
+        db.session.add(neuerA)
+        db.session.commit()
+
+    lebensmittel = db.session.execute(db.select(Produkt).group_by(Produkt.lebensmittel)).scalars()
+    lebensmittel=list(lebensmittel)    
+    products = db.session.execute(db.select(Produkt).order_by(Produkt.lebensmittel)).scalars()
+    products=list(products)   
+    categories = Produkt.query.group_by(Produkt.kategorie).distinct()
+    categories = list(categories)
+    cat = Kategorie.query.order_by(Kategorie.name).all()
+    cat = list(cat)
+    anbieter = Anbieter.query.order_by(Anbieter.name).all()
+    anbieter = list(anbieter)
+    return render_template("admin.html", lebensmittel=lebensmittel, products=products, categories=categories, cat=cat, anbieter=anbieter)
+
 #Grocery Delete Function
 @app.route('/grocery/delete/<int:id>')
 def delete(id):
@@ -169,6 +206,16 @@ def catdel(id):
     if not category:
         abort(404)
     db.session.delete(category)
+    db.session.commit()
+    return redirect(url_for("admin"))
+
+#Anbieter Delete Function
+@app.route('/anbieter/delete/<int:id>')
+def anbieter_delete(id):
+    anbieter = Anbieter.query.filter_by(id=id).first()
+    if not anbieter:
+        abort(404)
+    db.session.delete(anbieter)
     db.session.commit()
     return redirect(url_for("admin"))
 
@@ -248,11 +295,70 @@ def search():
     lebensmittel = list(lebensmittel)
     searched=request.form ['searched']
     searched= "%{}%".format(searched)
-    results_produktname = db.session.query(Produkt).filter(Produkt.produktname.like(searched)).group_by(Produkt.produktname)
-    results_lebensmittel = db.session.query(Produkt).filter(Produkt.lebensmittel.like(searched)).group_by(Produkt.produktname)
-    results_kategorie = db.session.query(Produkt).filter(Produkt.kategorie.like(searched)).group_by(Produkt.produktname)
-    results_laden = db.session.query(Produkt).filter(Produkt.laden.like(searched)).group_by(Produkt.produktname)
-    results = results_produktname.union(results_lebensmittel).union(results_kategorie).union(results_laden).distinct().all()
+
+    subquery = (
+        db.session.query(
+            Produkt.produktname,
+            func.min(Produkt.preis).label("min_preis")
+        )
+        .filter(Produkt.lebensmittel.like(searched))
+        .group_by(Produkt.produktname)
+        .subquery()
+    )
+
+    results_lebensmittel = (
+        db.session.query(Produkt)
+        .join(subquery, and_(Produkt.produktname == subquery.c.produktname, Produkt.preis == subquery.c.min_preis))
+        .filter(Produkt.lebensmittel.like(searched))
+    )
+    subquery = (
+        db.session.query(
+            Produkt.produktname,
+            func.min(Produkt.preis).label("min_preis")
+        )
+        .filter(Produkt.produktname.like(searched))
+        .group_by(Produkt.produktname)
+        .subquery()
+    )
+
+    results_produktname = (
+        db.session.query(Produkt)
+        .join(subquery, and_(Produkt.produktname == subquery.c.produktname, Produkt.preis == subquery.c.min_preis))
+        .filter(Produkt.produktname.like(searched))
+    )
+    subquery = (
+        db.session.query(
+            Produkt.produktname,
+            func.min(Produkt.preis).label("min_preis")
+        )
+        .filter(Produkt.kategorie.like(searched))
+        .group_by(Produkt.produktname)
+        .subquery()
+    )
+
+    results_kategorie = (
+        db.session.query(Produkt)
+        .join(subquery, and_(Produkt.produktname == subquery.c.produktname, Produkt.preis == subquery.c.min_preis))
+        .filter(Produkt.kategorie.like(searched))
+    )
+    subquery = (
+        db.session.query(
+            Produkt.produktname,
+            func.min(Produkt.preis).label("min_preis")
+        )
+        .filter(Produkt.laden.like(searched))
+        .group_by(Produkt.produktname)
+        .subquery()
+    )
+
+    results_anbieter = (
+        db.session.query(Produkt)
+        .join(subquery, and_(Produkt.produktname == subquery.c.produktname, Produkt.preis == subquery.c.min_preis))
+        .filter(Produkt.laden.like(searched))
+    )
+
+
+    results= results_produktname.union(results_lebensmittel).union(results_kategorie).union(results_anbieter)
     message=""
     if results:
         results=results
@@ -262,6 +368,58 @@ def search():
     print(results)
     return render_template("product_results.html", searched=searched, results=results, message=message, lebensmittel=lebensmittel, categories=categories)
 
+
+'''
+@app.route("/abc")
+def abc():
+    subquery = (
+        db.session.query(
+            Produkt.produktname,
+            func.min(Produkt.preis).label("min_preis")
+        )
+        .filter(Produkt.lebensmittel == "Bananen")
+        .group_by(Produkt.produktname)
+        .subquery()
+    )
+
+    results_lebensmittel = (
+        db.session.query(Produkt)
+        .join(subquery, and_(Produkt.produktname == subquery.c.produktname, Produkt.preis == subquery.c.min_preis))
+        .filter(Produkt.lebensmittel == "Bananen")
+    )
+    subquery = (
+        db.session.query(
+            Produkt.produktname,
+            func.min(Produkt.preis).label("min_preis")
+        )
+        .filter(Produkt.produktname == "Banane Fairtrade")
+        .group_by(Produkt.produktname)
+        .subquery()
+    )
+
+    results_produktname = (
+        db.session.query(Produkt)
+        .join(subquery, and_(Produkt.produktname == subquery.c.produktname, Produkt.preis == subquery.c.min_preis))
+        .filter(Produkt.produktname == "Banane Fairtrade")
+    )
+    subquery = (
+        db.session.query(
+            Produkt.produktname,
+            func.min(Produkt.preis).label("min_preis")
+        )
+        .filter(Produkt.kategorie == "Früchte & Gemüse")
+        .group_by(Produkt.produktname)
+        .subquery()
+    )
+
+    results_kategorie = (
+        db.session.query(Produkt)
+        .join(subquery, and_(Produkt.produktname == subquery.c.produktname, Produkt.preis == subquery.c.min_preis))
+        .filter(Produkt.kategorie == "Früchte & Gemüse")
+    )  
+    return render_template("test.html", results_lebensmittel=results_lebensmittel, results_produktname=results_produktname, results_kategorie=results_kategorie)
+'''
+
 #Lebensmittel Seite
 @app.route("/lebensmittel/<lebensmittelbezeichnung>")
 def lebensmittel(lebensmittelbezeichnung):
@@ -269,8 +427,21 @@ def lebensmittel(lebensmittelbezeichnung):
     categories = list(categories)
     lebensmittel = db.session.execute(db.select(Produkt).group_by(Produkt.lebensmittel)).scalars()
     lebensmittel=list(lebensmittel)    
-    results = db.session.query(Produkt).filter(Produkt.lebensmittel == lebensmittelbezeichnung).group_by(Produkt.produktname).all()
-    results = list(results)
+    subquery = (
+        db.session.query(
+            Produkt.produktname,
+            func.min(Produkt.preis).label("min_preis")
+        )
+        .filter(Produkt.lebensmittel==lebensmittelbezeichnung)
+        .group_by(Produkt.produktname)
+        .subquery()
+    )
+
+    results = (
+        db.session.query(Produkt)
+        .join(subquery, and_(Produkt.produktname == subquery.c.produktname, Produkt.preis == subquery.c.min_preis))
+        .filter(Produkt.lebensmittel==lebensmittelbezeichnung)
+    )
     searched = lebensmittelbezeichnung
     return render_template("lebensmittel_results.html", results=results, searched=searched, categories=categories, lebensmittel=lebensmittel)
 
