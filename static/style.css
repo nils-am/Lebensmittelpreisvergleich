@@ -263,6 +263,11 @@ Change Dropdown Menu to Hover by the following CSS Code:
     }
 }
 
+@media only screen and (orientation: portrait) {
+    .blocktext {
+        width: 90%;
+    }
+}
 
 
 
