@@ -7,12 +7,12 @@
         <thead>
             <tr>
                 <th>Lebensmittel</th>
-                <th>Preis</th>
+                <th>Preis [CHF]</th>
                 <th>Qualität</th>
                 <th>Laden</th>
                 <th>Produktname</th>
                 <th>Kategorie</th>
-                <th>Zusatz</th>
+                <th>Gewicht [g]</th>
             </tr>
         </thead>
         <tbody>
@@ -43,7 +43,7 @@
                 <td><input type="text" name="lebensmittel" required></td>
             </tr>
             <tr>
-                <td>Preis</td>
+                <td>Preis [CHF]</td>
                 <td><input type="number" name="preis" step=".01" required></td>
             </tr>
             <tr>
@@ -75,7 +75,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Zusatz</td>
+                <td>Gewicht [g]</td>
                 <td><input type="number" name="zusatz" step=".01" required></td>
             </tr>
             <tr>
@@ -84,7 +84,7 @@
         </tbody>
     </table>
 </form>
-
+<hr>
 <form method="post" action="{{url_for("add_category")}}">
     <table>
         <th>
@@ -107,7 +107,7 @@
         </tbody>
     </table>
 </form>
-
+<hr>
 <form method="post" action="{{url_for("add_anbieter")}}">
     <table>
         <th>
@@ -131,50 +131,3 @@
     </table>
 </form>
 {% endblock %}
-
-
-<div class="add-table">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Lebensmittel</th>
-                <th>Preis</th>
-                <th>Qualitätsbeschreibung</th>
-                <th>Laden</th>
-                <th>Produktname</th>
-                <th>Kategorie</th>
-                <th>Zusatz</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><input type="text" name="lebensmittel" required></td>
-                <td><input type="float" name="preis" required></td>
-                <td><input type="text" name="quali" required></td>
-                <td><input type="text" name="laden" required></td>
-                <td><input type="text" name="produktname" required></td>
-                <td><input type="text" name="kategorie" required></td>
-                <td><input type="text" name="zusatz" required></td>
-            </tr>
-</tbody>
-</table>
-</div>
-<input type="submit">
-
-
-<form method="post">
-<label for="lebensmittel">Lebensmittel</label>
-<input type="text" name="lebensmittel" required><br><br>
-<label for="preis">Preis</label>
-<input type="float" name="preis" required><br><br>
-<label for="quali">Qualität</label>
-<input type="text" name="quali" required><br><br>
-<label for="laden">Lebensmittelhändler</label>
-<input type="text" name="laden" required><br><br>
-<label for="produktname">Produktname</label>
-<input type="text" name="produktname" required><br><br>
-<label for="kategorie">Kategorie</label>
-<input type="text" name="kategorie" required><br><br>
-<label for="zusatz">Zusatz</label>
-<input type="text" name="zusatz" required>
-</form>

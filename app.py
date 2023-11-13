@@ -299,6 +299,7 @@ def search():
         db.session.query(Produkt)
         .join(subquery, and_(Produkt.produktname == subquery.c.produktname, Produkt.preis == subquery.c.min_preis))
         .filter(Produkt.lebensmittel.like(searched))
+        .group_by(Produkt.preis)
     )
     subquery = (
         db.session.query(
@@ -314,6 +315,7 @@ def search():
         db.session.query(Produkt)
         .join(subquery, and_(Produkt.produktname == subquery.c.produktname, Produkt.preis == subquery.c.min_preis))
         .filter(Produkt.produktname.like(searched))
+        .group_by(Produkt.preis)
     )
     subquery = (
         db.session.query(
@@ -329,6 +331,7 @@ def search():
         db.session.query(Produkt)
         .join(subquery, and_(Produkt.produktname == subquery.c.produktname, Produkt.preis == subquery.c.min_preis))
         .filter(Produkt.kategorie.like(searched))
+        .group_by(Produkt.preis)
     )
     subquery = (
         db.session.query(
@@ -344,6 +347,7 @@ def search():
         db.session.query(Produkt)
         .join(subquery, and_(Produkt.produktname == subquery.c.produktname, Produkt.preis == subquery.c.min_preis))
         .filter(Produkt.laden.like(searched))
+        .group_by(Produkt.preis)
     )
 
 
@@ -430,6 +434,7 @@ def lebensmittel(lebensmittelbezeichnung):
         db.session.query(Produkt)
         .join(subquery, and_(Produkt.produktname == subquery.c.produktname, Produkt.preis == subquery.c.min_preis))
         .filter(Produkt.lebensmittel==lebensmittelbezeichnung)
+        .group_by(Produkt.preis)
     )
     searched = lebensmittelbezeichnung
     return render_template("lebensmittel_results.html", results=results, searched=searched, categories=categories, lebensmittel=lebensmittel)

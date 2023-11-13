@@ -231,6 +231,7 @@ Change Dropdown Menu to Hover by the following CSS Code:
     flex-basis: 20%;
 }
 
+
 @media all and (max-width: 767px) {
     .responsive-table .table-header {
         display: none;
@@ -242,7 +243,7 @@ Change Dropdown Menu to Hover by the following CSS Code:
     }
 
     .responsive-table li {
-        display: block;
+        display:block;
     }
 
     .responsive-table .col {
@@ -252,22 +253,52 @@ Change Dropdown Menu to Hover by the following CSS Code:
     .responsive-table .col {
         display: flex;
         padding: 10px 0;
+        text-align: right;
     }
 
     .responsive-table .col:before {
         color: #6C7A89;
         padding-right: 10px;
         content: attr(data-label);
-        flex-basis: 50%;
+        flex-basis: 100%;
+        text-align: left;
+    }
+    
+}
+
+@media all and (max-width: 767px) {
+    .responsive-table .table-header {
+        display: none;
+    }
+
+    .responsive-table .table-row {
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        display: flex;
+        flex-wrap: wrap; /* Allow items to wrap onto the next line */
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding: 10px;
+    }
+
+    .responsive-table .col {
+        flex-basis: 90%; /* Adjust the flex-basis as needed for a two-column layout */
+        box-sizing: border-box;
+        margin-bottom: 10px; /* Add margin to create some spacing between columns */
+    }
+
+    .responsive-table .col:before {
+        color: #6C7A89;
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .responsive-table .col span {
         text-align: right;
     }
-    .wrap-text {
-        white-space: none; /* Allow text to wrap */
-        word-wrap: none; /* Break long words if necessary */
-        max-width: 90%; /* Ensure it doesn't exceed the container's width */
-        color: #fff !important; /* Set the text color to white */
-    }
 }
+
 
 @media only screen and (orientation: portrait) {
     .blocktext {
@@ -293,7 +324,6 @@ Change Dropdown Menu to Hover by the following CSS Code:
         font-size: .8em;
       }
 }
-
 
 
 .produkttitel{
@@ -492,11 +522,24 @@ a:link, a:visited {
     display: block;
 }
 
+@media only screen and (orientation: portrait) {
+    .breite {
+        width:300px
+    }
+}
+
 .wrap-text {
-    white-space: normal; /* Allow text to wrap */
-    word-wrap:normal; /* Break long words if necessary */
-    max-width: 90%; /* Ensure it doesn't exceed the container's width */
-    color: #fff !important; /* Set the text color to white */
+    white-space: normal; 
+    word-wrap:normal; 
+    max-width: 90%; 
+    color: #fff !important; 
+}
+@media only screen and (orientation: portrait) {
+    .wrap-text {
+        white-space: none;
+        word-wrap:none;
+        max-width: 300px;
+    }
 }
 
 .wrap-text:hover{
@@ -504,8 +547,8 @@ a:link, a:visited {
 }
 
 .center-vertical {
-    line-height: 30px; /* Adjust the line height to center vertically */
-    padding-top: 10px; /* Adjust the top padding for vertical alignment */
+    line-height: 30px; 
+    padding-top: 10px; 
     margin-right: 10px;
 }
 
