@@ -15,8 +15,8 @@
       <li class="table-row">
         <div class="col col-1" data-label="Preis">CHF {{product.preis}}</div>
         <div class="col col-2" data-label="Qualität">{{product.quali}}</div>
-        <div class="col col-3" data-label="Laden">{{product.laden}}</div>
-        <div class="col col-4" data-label="Gewicht"> {% set pp100g = product.preis/product.zusatz * 100%}CHF {{'%0.2f'| format(pp100g|float)}}</div>
+        <div class="col col-3" data-label="Anbieter">{{product.laden}}</div>
+        <div class="col col-4" data-label="Preis/100g oder Preis/100ml"> {% set pp100g = product.preis/product.zusatz * 100%}CHF {{'%0.2f'| format(pp100g|float)}}</div>
       </li>
       {% endfor %}
     </ul>

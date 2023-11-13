@@ -2,9 +2,7 @@ from flask import Flask, redirect, render_template, request, session, url_for, a
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func, and_
 from datetime import timedelta
-import logging 
 
-logging.basicConfig(level=logging.DEBUG) 
 
 app = Flask(__name__)
 
@@ -15,6 +13,7 @@ app.secret_key = '$6q_cHiPltHl&R-wOkOb'
 app.config["SESSION_COOKIE_SECURE"] = True
 
 db = SQLAlchemy(app)
+
 if __name__ == "__main__":
     app.run(debug=False, host="0.0.0.0", port=5000)
 
@@ -61,10 +60,6 @@ class Anbieter(db.Model):
 @app.before_request
 def before_request():
     g.user = session.get("user")
-    print(session)
-    print(session.get("user"))
-    print(g.user)
-
 
 #Admin Page with Functionality to add lebensmittel
 @app.route('/admin', methods=('GET', 'POST'))
@@ -83,7 +78,6 @@ def admin():
         anbieter=list(anbieter)
         return render_template('admin.html', lebensmittel=lebensmittel, message=message, categories=categories, products=products, user=session["user"], cat=cat, anbieter=anbieter)
     else:
-        print(g.user)
         return redirect(url_for("home"))
 
 #Login
@@ -93,7 +87,6 @@ def login():
         session.pop('user', None)
         if request.form["password"] == "FR5jafr4swibo*akocr4" and request.form["username"] == "YaraNilsMatura23":
             session["user"] = request.form["username"]
-            print(session)
             return redirect(url_for("admin"))
         else: 
             return render_template("login_page.html")
@@ -105,7 +98,6 @@ def login():
 def add_grocery():
     message = ""
     if  request.method == 'POST':
-        print("a")
         preis = request.form["preis"]
         lebensmittel = request.form["lebensmittel"]
         quali= request.form["quali"]
@@ -151,8 +143,6 @@ def add_grocery():
 def add_category():
     if request.method == "POST":
         name = request.form["cat"]
-        print(name)
-        print("test")
         neuek = Kategorie(name=name)
         db.session.add(neuek)
         db.session.commit()
@@ -172,7 +162,6 @@ def add_category():
 def add_anbieter():
     if request.method == "POST":
         name = request.form["anbieter"]
-        print(name)
         neuerA = Anbieter(name=name)
         db.session.add(neuerA)
         db.session.commit()
@@ -365,7 +354,6 @@ def search():
     else:
         message = "Für Ihre Suche gab es keine Resultate. Überprüfen Sie Ihre Anfrage auf Schreibfehler oder nutzen Sie unsere Produktlise."
     searched = searched.replace('%', '').replace('{', '').replace('}', '')
-    print(results)
     return render_template("product_results.html", searched=searched, results=results, message=message, lebensmittel=lebensmittel, categories=categories)
 
 
@@ -467,7 +455,6 @@ def dropsession():
 @app.route("/tempsearch")
 def tempsearch():
     q = request.args.get("q")
-    print(q)
     q= "%{}%".format(q)
     if q:
         res1 = db.session.query(Produkt).filter(Produkt.produktname.like(q)).group_by(Produkt.produktname)
