@@ -261,6 +261,12 @@ Change Dropdown Menu to Hover by the following CSS Code:
         flex-basis: 50%;
         text-align: right;
     }
+    .wrap-text {
+        white-space: none; /* Allow text to wrap */
+        word-wrap: none; /* Break long words if necessary */
+        max-width: 90%; /* Ensure it doesn't exceed the container's width */
+        color: #fff !important; /* Set the text color to white */
+    }
 }
 
 @media only screen and (orientation: portrait) {
@@ -433,10 +439,6 @@ a:link, a:visited {
     text-decoration: none;
    }
 
-.breite{
-    width: 30px;
-}
-
 .produktbild{
     margin: 15px;
     width: 269px;
@@ -486,7 +488,7 @@ a:link, a:visited {
 }
 
 .breite {
-    width: 115px;
+    width: 130px;
     display: block;
 }
 
