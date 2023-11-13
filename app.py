@@ -349,9 +349,10 @@ def search():
 
     results= results_produktname.union(results_lebensmittel).union(results_kategorie).union(results_anbieter)
     message=""
-    if results:
+    if results.first():
         results=results
     else:
+        results=""
         message = "Für Ihre Suche gab es keine Resultate. Überprüfen Sie Ihre Anfrage auf Schreibfehler oder nutzen Sie unsere Produktlise."
     searched = searched.replace('%', '').replace('{', '').replace('}', '')
     return render_template("product_results.html", searched=searched, results=results, message=message, lebensmittel=lebensmittel, categories=categories)
